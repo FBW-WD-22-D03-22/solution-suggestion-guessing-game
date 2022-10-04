@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Guessing Game</title>
+</head>
+
+<body style="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <header>
+        <h1>Guess a number!</h1>
+    </header>
+    <ul>
+        <li>Enter your name</li>
+        <li>Choose your level (how hard would you want it to be?)</li>
+        <li>Good luck with guessting!</li>
+
+    </ul>
+    <button onclick="startGame()"
+        style="color: cadetblue; border-radius: 50%; width: 150px; height: 150px; font-size: x-large; border: 10px solid cadetblue">Start...</button>
+
+
+</body>
+<script>
+
+    function startGame() {
+        let name = prompt('What is your name?');
+        let nameFirstCapital = name[0].toUpperCase() + name.substring(1)
+
+        let level = parseInt(prompt(`Which level would you like to play?
+                                     - easy enter 0 
+                                     guess a Number between 0-10
+                                     - medium enter 1 
+                                     guess a Number between 0-20
+                                     - hard enter 2 
+                                     guess a Number between 0-30`));
+        let counter = 0;
+
+        let randomNumber = 0;
+
+        let guess = prompt(`Guess a number between 1 - ${level === 0 ? 10 : level === 1 ? 20 : 30}`)
+        if (level == 0) {
+            randomNumber = Math.floor(Math.random() * 10) + 1;
+            if (guess > 10)
+                alert('Your guess must not be higher than 10!')
+        }
+        else if (level == 1) {
+            randomNumber = Math.abs(Math.floor(Math.random() * 10) - 20);
+            if (guess > 20)
+                alert('Your guess must not be higher than 20!')
+        }
+
+        else if (level == 2) {
+            randomNumber = Math.abs(Math.floor(Math.random() * 10) - 30);
+
+            if (guess > 30)
+                alert('Your guess must not be higher than 30!')
+        }
+        for (let i = 1; i <= 3; i++) {
+
+            if (guess != randomNumber) {
+
+                counter = counter + 1;
+
+                if (counter == 3) {
+                    alert(`Sorry ${nameFirstCapital}, you failed to guess the number in three attempts.The number was ${randomNumber}`)
+                    break
+                }
+                guess = prompt(`Try Again ${nameFirstCapital}. ${guess < randomNumber ? 'Your number is smaller than the correct number' : 'Your number is greater than the correct number'}`)
+
+            }
+
+            if (guess == randomNumber) {
+                alert(`Success ${nameFirstCapital}, the number was ${guess}! Attemps: ${counter + 1}.`)
+
+                return
+            }
+        }
+    }
+
+
+
+</script>
+
+</html>
